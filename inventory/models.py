@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Device(models.Model): # name of the table
-    _type = models.CharField(max_length=100, blank=False) # name of col
+    type = models.CharField(max_length=100, blank=False) # name of col
     price = models.IntegerField()
 
     # Restrict the available user choices for device status
