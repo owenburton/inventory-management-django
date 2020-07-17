@@ -37,14 +37,24 @@ def display_mobiles(request):
     return render(request, 'index.html', context)
 
 
-def add_laptop(request):
+def add_device(request, deviceClass):
     if request.method == "POST":
-        form = LaptopForm(request.POST)
+        form = deviceClass(request.POST)
 
         if form.is_valid():
             form.save()
             return redirect('index')
     
     else:
-        form = LaptopForm()
+        form = deviceClass()
         return render(request, 'add_new.html', {'form': form})
+
+
+def add_laptop(request):
+    return add_device(request, LaptopForm)
+
+def add_desktop(request):
+    return add_device(request, DesktopForm)
+
+def add_mobile(request):
+    return add_device(request, MobileForm)
