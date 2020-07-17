@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -34,3 +35,16 @@ def display_mobiles(request):
     }
 
     return render(request, 'index.html', context)
+
+
+def add_laptop(request):
+    if request.method == "POST":
+        form = LaptopForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    
+    else:
+        form = LaptopForm()
+        return render(request, 'add_new.html', {'form': form})
